@@ -1,0 +1,17 @@
+{
+	"name": "DS_SQLAGG",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ASQL",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "DBO",
+			"table": "TBLAGG"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

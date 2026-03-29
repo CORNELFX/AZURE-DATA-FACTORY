@@ -1,0 +1,28 @@
+{
+	"name": "DS_AZUREMULTIPLETABLES",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ASQL",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"PARAMSINKTABLENAME": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": {
+				"value": "@split(dataset().PARAMSINKTABLENAME,'.' )[0]",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@split(dataset().PARAMSINKTABLENAME,'.' )[1]",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

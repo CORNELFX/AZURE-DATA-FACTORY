@@ -1,0 +1,60 @@
+{
+	"name": "dataflow6",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DS_JSONFLATTEN",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DS_SINKFLATTEN",
+						"type": "DatasetReference"
+					},
+					"name": "sinkFLATTEN"
+				}
+			],
+			"transformations": [
+				{
+					"name": "flattenJSON"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          Items as string[],",
+				"          OrderDate as date,",
+				"          OrderId as short",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     documentForm: 'arrayOfDocuments') ~> source1",
+				"source1 foldDown(unroll(Items),",
+				"     mapColumn(",
+				"          OrderId,",
+				"          OrderDate,",
+				"          Items",
+				"     ),",
+				"     skipDuplicateMapInputs: false,",
+				"     skipDuplicateMapOutputs: false) ~> flattenJSON",
+				"flattenJSON sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> sinkFLATTEN"
+			]
+		}
+	}
+}

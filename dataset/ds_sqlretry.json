@@ -1,0 +1,57 @@
+{
+	"name": "ds_sqlretry",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ASQL",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "ORDERDATE",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PRODUCTKEY",
+				"type": "nvarchar"
+			},
+			{
+				"name": "COUNTRY",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ENGLISHPRODUCTNAME",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SALESAMOUNT",
+				"type": "nvarchar"
+			},
+			{
+				"name": "TAXAMT",
+				"type": "nvarchar"
+			},
+			{
+				"name": "UNITPRICE",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "ORDERQUANTITY",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "TOTALPRODUCTCOST",
+				"type": "float",
+				"precision": 15
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "ORDERSNOHEARDERS"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

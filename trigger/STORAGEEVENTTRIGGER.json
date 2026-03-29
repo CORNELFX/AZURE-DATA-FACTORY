@@ -1,0 +1,25 @@
+{
+	"name": "STORAGEEVENTTRIGGER",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "STORAGEEVENTTRIGGER",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "BlobEventsTrigger",
+		"typeProperties": {
+			"blobPathBeginsWith": "/mycontainer/blobs/FILES",
+			"blobPathEndsWith": ".csv",
+			"ignoreEmptyBlobs": true,
+			"scope": "/subscriptions/6f8e7e8a-1e8d-4e3b-a552-1343b50c4d49/resourceGroups/CORNEL_DEV/providers/Microsoft.Storage/storageAccounts/corneldevadls",
+			"events": [
+				"Microsoft.Storage.BlobCreated"
+			]
+		}
+	}
+}

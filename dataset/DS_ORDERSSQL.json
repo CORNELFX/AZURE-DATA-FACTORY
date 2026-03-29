@@ -1,0 +1,49 @@
+{
+	"name": "DS_ORDERSSQL",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ASQL",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "ORDERDATE",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "PRODUCTKEY",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "COUNTRY",
+				"type": "varchar"
+			},
+			{
+				"name": "ENGLISHPRODUCTNAME",
+				"type": "varchar"
+			},
+			{
+				"name": "SALESAMOUNT",
+				"type": "money",
+				"precision": 19,
+				"scale": 4
+			},
+			{
+				"name": "TAXAMNT",
+				"type": "money",
+				"precision": 19,
+				"scale": 4
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "ORDERSNEW"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

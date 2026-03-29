@@ -1,0 +1,17 @@
+{
+	"name": "DS_SQLSINKJOIN",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ASQL",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "DBO",
+			"table": "TBLJOIN"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
