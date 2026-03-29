@@ -1,0 +1,17 @@
+{
+	"name": "DS_SINKFLATTEN",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ASQL",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "DBO",
+			"table": "TBLFLATTEN"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

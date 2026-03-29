@@ -1,0 +1,24 @@
+{
+	"name": "025PPLVALIDATIONACTIVITY",
+	"properties": {
+		"activities": [
+			{
+				"name": "Validation1",
+				"type": "Validation",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "DS_ORDERSCSV",
+						"type": "DatasetReference"
+					},
+					"timeout": "0.12:00:00",
+					"sleep": 10
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2026-03-25T16:08:17Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

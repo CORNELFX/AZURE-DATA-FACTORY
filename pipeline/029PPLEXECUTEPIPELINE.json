@@ -1,0 +1,29 @@
+{
+	"name": "029PPLEXECUTEPIPELINE",
+	"properties": {
+		"activities": [
+			{
+				"name": "Execute Pipeline1",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "030PPLPARAMETERS",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"X": 20
+					}
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2026-03-25T16:08:15Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

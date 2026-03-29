@@ -1,0 +1,197 @@
+{
+	"name": "067PPLCOPYMULTIPLETABLESFROMLOCALSQLTOASQL",
+	"properties": {
+		"activities": [
+			{
+				"name": "readtableinfo",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": "\nselect TABLENAME from TBLMAPPINGS\nWHERE ISACTIVE=1",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "DS_MIGTBLMAPPINGS",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "LOOPINTABLES",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "readtableinfo",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('readtableinfo').output.value",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "Set TABLENAME",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "TABLENAME",
+								"value": {
+									"value": "@item().TABLENAME",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "Copydata",
+							"type": "Copy",
+							"dependsOn": [
+								{
+									"activity": "Set TABLENAME",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "SqlServerSource",
+									"queryTimeout": "02:00:00",
+									"partitionOption": "None"
+								},
+								"sink": {
+									"type": "AzureSqlSink",
+									"writeBehavior": "insert",
+									"sqlWriterUseTableLock": false,
+									"tableOption": "autoCreate",
+									"disableMetricsCollection": false
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "DS_MIGMULTIPLETABLES",
+									"type": "DatasetReference",
+									"parameters": {
+										"TPARAMABLENAME": {
+											"value": "@variables('TABLENAME')",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "DS_AZUREMULTIPLETABLES",
+									"type": "DatasetReference",
+									"parameters": {
+										"PARAMSINKTABLENAME": {
+											"value": "@variables('TABLENAME')",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						},
+						{
+							"name": "UPDATETABLEINFO",
+							"type": "SqlServerStoredProcedure",
+							"dependsOn": [
+								{
+									"activity": "Copydata",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"storedProcedureName": "[dbo].[SP_UPDATETABLEINFO]",
+								"storedProcedureParameters": {
+									"SinkRows": {
+										"value": {
+											"value": "@activity('Copydata').output.rowsCopied",
+											"type": "Expression"
+										},
+										"type": "Int64"
+									},
+									"SourceRows": {
+										"value": {
+											"value": "@activity('Copydata').output.rowsRead",
+											"type": "Expression"
+										},
+										"type": "Int64"
+									},
+									"TABLENAME": {
+										"value": {
+											"value": "@variables('TABLENAME')",
+											"type": "Expression"
+										},
+										"type": "String"
+									}
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "LS_ASQL",
+								"type": "LinkedServiceReference"
+							}
+						}
+					]
+				}
+			}
+		],
+		"variables": {
+			"TABLENAME": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2026-03-25T16:08:18Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

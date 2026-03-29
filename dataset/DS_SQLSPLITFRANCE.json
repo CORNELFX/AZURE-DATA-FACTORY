@@ -1,0 +1,17 @@
+{
+	"name": "DS_SQLSPLITFRANCE",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ASQL",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "DBO",
+			"table": "TBLFRANCE"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

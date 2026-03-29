@@ -1,0 +1,36 @@
+{
+	"name": "019PPLSTOREDPROCEDUREACTIVITY",
+	"properties": {
+		"activities": [
+			{
+				"name": "Stored procedure1",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[SP_PRODUCTWISESALES]",
+					"storedProcedureParameters": {
+						"Country": {
+							"value": "FRANCE",
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "LS_ASQL",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2026-03-25T16:08:16Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -1,0 +1,17 @@
+{
+	"name": "DS_SQLTEST",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ASQL2",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "DBO",
+			"table": "ORDERSTEST"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
